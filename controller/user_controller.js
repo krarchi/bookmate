@@ -55,6 +55,6 @@ module.exports = {
     }
     ,
     logout: async (req,res) => {
-
+        res.json({status: true, message: "Logout Success"})
     }
 }
