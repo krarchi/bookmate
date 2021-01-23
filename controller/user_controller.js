@@ -18,7 +18,7 @@ module.exports = {
         let password = req.body.password;
         let buff = new Buffer(password);
         let encodedPass = buff.toString('base64');
-        var sql = "INSERT INTO user Values ('"+req.body.firstname+"','"+req.body.lastname+"',"+req.body.mobile+",'"+req.body.email+"','"+encodedPass+"','"+req.body.address+"','"+req.body.deviceId+"','"+req.body.devicetype+"')";
+        var sql = "INSERT INTO user (first_name,last_name,mobile,email,password,address,device_id,device_type) Values ('"+req.body.firstname+"','"+req.body.lastname+"',"+req.body.mobile+",'"+req.body.email+"','"+encodedPass+"','"+req.body.address+"','"+req.body.deviceId+"','"+req.body.device_type+"')";
         con.query(sql, function (err, result) {
             if (err) res.json({status: false, message: err});
             res.json({status: true, message: "User Created"})
@@ -55,6 +55,11 @@ module.exports = {
     }
     ,
     logout: async (req,res) => {
-        res.json({status: true, message: "Logout Success"})
+
+        var sql = "INSERT INTO blacklist Values ('"+req.get('Authorization')+"')";
+        con.query(sql, function (err, result) {
+            if (err) res.json({status: false, message: err});
+            res.json({status: true, message: "User Created"})
+        });
     }
 }

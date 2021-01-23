@@ -18,7 +18,8 @@ exports.up = function(db,callback) {
   db.createTable('user', {
     id: {
       type: 'int',
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     first_name: {
       type: 'string',
@@ -58,6 +59,17 @@ exports.up = function(db,callback) {
     if (err) return callback(err);
     return callback();
   });
+
+ db.createTable('blacklist', {
+   id: {
+     type: 'int',
+     primaryKey: true
+   },
+   token: {
+     type: 'string',
+     required: true
+   }
+ })
 };
 
 exports.down = function(db,callback) {
